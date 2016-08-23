@@ -1,0 +1,13 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-23T10:42:16-05:00
+
+====== Python ======
+Created Tuesday 23 August 2016
+
+
+=== Mira BG/Q ===
+
+You can try this version,
+/bgsys/tools/python2.7.5-gnu-20130730
+it has mpi4py.

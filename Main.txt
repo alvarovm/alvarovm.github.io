@@ -5,15 +5,54 @@ Creation-Date: 2016-08-18T19:43:45-05:00
 ====== ALCF cookbook ======
 
 
+
+
+
+
+===== Getting Started Workshop Videoconferences =====
+http://www.alcf.anl.gov/workshops/getting-started-alcf-resources-videoconferences
+
+===== Examples for Getting Started Workshop =====
+https://github.com/alvarovm/GSW
+Tutorials include
+* compilation
+* ensemble jobs
+* interactive
+* mpmd
+* python
+* script
+* subblock
+* threads
+
+=== ALCF Tutorial Video ===
+[[+ALCF_tutorial_video_shortcuts]]
+
+=== ATPESC Training ALCF ===
+Visit
+http://extremecomputingtraining.anl.gov/
+
+Past programs (videos)
+http://extremecomputingtraining.anl.gov/archive/
+
+=== ALCF Training ===
+http://www.alcf.anl.gov/training
+
 ===== Mira BGQ =====
 
- [[+Getting_started_with_BG_Q]]
-
-
+ [[+Mira BGQ:Getting started with BG Q]]
 
 
 ===== Theta KNL/Cray =====
 
-[[+Getting_started_with_Theta]]
+[[+Theta KNL Cray:Getting started with Theta]]
+
+[[+Theta KNL Cray:Compiling your code]]
+
+[[+Theta KNL Cray:Running a job]]
+
+[[+Theta KNL Cray:Debbuging]]
+
+[[+Theta KNL Cray:Profiling]]
+
 
 

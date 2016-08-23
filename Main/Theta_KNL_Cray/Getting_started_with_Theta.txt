@@ -1,0 +1,12 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-23T11:12:05-05:00
+
+====== Getting started with Theta ======
+Created Tuesday 23 August 2016
+
+Visit
+https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki
+
+ALCF ESP Hands on Workshop
+http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop

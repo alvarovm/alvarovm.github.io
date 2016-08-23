@@ -1,0 +1,37 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-19T19:13:59-05:00
+
+====== Profiling ======
+Created Friday 19 August 2016
+
+Visit
+https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki
+
+====== TAU ======
+
+Extrasouces
+
+Load TAU in theta
+source  [[/soft/perftools/tau/tau.bashrc]]
+
+ls $TAU/Makefile*
+export TAU_MAKEFILE=/soft/perftools/tau/tau_latest/craycnl/lib/Makefile.tau-intel-papi-mpi-pdt
+
+make LD=tau_f90.sh
+-e TAU_METRICS=TIME,PAPI_L1_DCM -e TAU_PROFILE_FORMAT="merged"
+
+Instrumenting by hand
+
+See
+[[Software:Profiling:TAU]]
+
+
+
+====== Cray profilers ======
+
+
+
+
+====== Intel Vtune ======
+
