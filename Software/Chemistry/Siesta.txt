@@ -1,0 +1,35 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-24T17:49:34-05:00
+
+====== Siesta ======
+Created Wednesday 24 August 2016
+
+== Overview ==
+SIESTA is a code for Material Science simulations. Computes the ab initio calculations within DFT using localized basis set.
+
+
+== Source code ==
+This code requieres a valid license for its use.
+The source can be downloaded from:
+http://departments.icmab.es/leem/siesta/
+
+
+
+
+== Building SIESTA in ALCF ==
+
+SIESTA can be build in BG/Q computers.
+
+Change your [[~/.soft]] as follow
+##################CUT HERE###############
++mpiwrapper-xl
+@ibm-compilers-default
+@default
+
+PATH = /soft/buildtools/autotools/aug2013/bin:$PATH
+##################CUT HERE end ###############
+
+
+Change the content in Obj/arch.make for
+http://web.alcf.anl.gov/~vama/siesta/arch.make.bgq

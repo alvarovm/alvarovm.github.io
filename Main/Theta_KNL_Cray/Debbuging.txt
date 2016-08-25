@@ -6,21 +6,16 @@ Creation-Date: 2016-08-19T19:11:39-05:00
 Created Friday 19 August 2016
 
 
+
 ====== Allinea DDT ======
 
-module add ddt
+Also see
+http://www.alcf.anl.gov/user-guides/allinea-ddt
+
+And see for offline DDT in Theta
+[[Software:Debugging:DDT]]
+
+Download Allinea Client here:
+http://www.allinea.com/developer-tools/debug-allinea-ddt/download
 
 
-====== lgdb ======
-
-To run lgdb, use this wrapper:
-
-   /home/rloy/public/debuggers/lgdb/theta-lgdb
-
-Once you get the lgdb prompt, use the "launch"
-command and give it your Cobalt script as a
-an argument.
-
-e.g.   launch $a(8) --qsub=myjob.sh hellompi
-
-for an 8-rank run.

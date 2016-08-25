@@ -9,6 +9,79 @@ Created Tuesday 23 August 2016
 
 === Compilation ===
 
+Precompiled binaries and library in Theta can be found here:
+/home/avazquez/public/ELPA-AVX-MIC-AVX512-cray2
+
+== Theta KNL/Cray computer ==
+
+This is a copy of a make.sys to compile with Intel compilers using Cray wrappers and cray-libsci library with Scalapack/lapack/blas functions.
+
+'''
+# Please set the variables below according to your system!
+# ========================================================
+# Choose ELPA2 kernels.
+# Possible choices for ARCHITECTURE include:
+# Generic, Simple, SSE, AVX, BlueGeneQ.
+# See ./src/elpa2_kernels/README_elpa2_kernels.
+ARCHITECTURE = AVX
+# For AVX, uncomment and set the following variables.
+BLOCK_REAL = 2
+BLOCK_COMPLEX = 1
+# ========================================================
+# Switch on/off OpenMP.
+# Set OPENMP to yes/no.
+
+OPENMP = yes
+
+# ========================================================
+# Set compilers and flags.
+# Only Fortran compiler and flags are necessary,
+# unless using AVX kernels and/or OpenMP.
+
+PRE      =AVX-MIC-AVX512-cray2
+MPIFC    = ftn
+FFLAGS_E  = -O3 -fpe0 -fpp -g -fopenmp -qopt-report=5 -xMIC-AVX512  -check bounds -check uninit -check pointers -traceback -lstdc++
+MPICC    = cc
+CFLAGS_E  =  -O3 -g -fopenmp -qopt-report=5 -xMIC-AVX512 -traceback
+MPICXX   = CC
+CXXFLAGS_E = -O3 -g -fopenmp -xMIC-AVX512 -traceback
+# Set XLF to yes if using IBM XF compilers.
+XLF = no
+# ========================================================
+# Location of BLAS/LAPACK/BLACS/ScaLAPACK.
+#BLAS      =
+#LAPACK    =
+#BLACS     = 
+#SCALAPACK = 
+# ========================================================
+# Archive tools.
+ARCH = ar
+ARCHFLAGS = cr
+RANLIB = ranlib
+'''
+
+
+
+
 === Run ===
+
+This is an example of how to run test_real2 in 8 nodes 64 processors per node and 1 openmp thread.
+
+'''
+#!/bin/bash -x
+#COBALT -t 30
+#COBALT -n 8
+#COBALT -q cache-quad
+#COBALT -A HybridPV_tesp
+bin=/home/avazquez/public/ELPA-AVX-MIC-AVX512-cray2/bin/test_real2
+proc=64
+thr=1
+size=8
+export  OMP_NUM_THREADS=$thr
+na=$((size*1024))
+ntot=$(($COBALT_PARTSIZE*$proc))
+aprun  -n $ntot -N $proc -cc depth -d $thr    $bin $na $na 16 >& test_rank-$ntot-$proc-omp-$thr-$na-16-out-$COBALT_JOBID
+'''
+
 
 === Notes ===

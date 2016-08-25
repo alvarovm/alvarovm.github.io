@@ -1,0 +1,27 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-23T23:40:20-05:00
+
+====== MKL ======
+Created Tuesday 23 August 2016
+
+
+MKL in Theta
+
+1) Set env. variable MKLROOT=/opt/intel/mkl-knl/mkl
+
+2) Consult the following website to determine the compile/link command line options to use:
+	  http://software.intel.com/en-us/articles/intel-mkl-link-line-advisor
+
+For example, to compile an OpenMP program that calls the MKL Lapack routine DGEMM would require the following command line:
+
+  $ ftn -static -extend-source -qopenmp -O2 dgemm.f -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_intel_thread.a -Wl,--end-group -lpthread -lm
+
+
+Intel® Math Kernel Library (Intel® MKL) Link Line Advisor v4.5
+https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/
+
+
+How to set good environment variables for the Intel MKL library
+http://www.diracprogram.org/doc/release-12/installation/mkl.html
+https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications

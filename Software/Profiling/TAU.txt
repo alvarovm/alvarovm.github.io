@@ -12,3 +12,27 @@ http://www.alcf.anl.gov/user-guides/tuning-and-analysis-utilities-tau
 
 Website
 https://www.cs.uoregon.edu/research/tau/downloads.php
+
+PAPI website
+http://icl.cs.utk.edu/projects/papi/wiki/PAPITopics:Getting_Started
+
+
+ Use PAPI (in JLSE)
+
+A patched version of PAPI with supported hardware counters is installed in /soft/perftools/tau/papi-knl
+
+Option 4: Use TAU (COMPILE STATICALLY USING intel_beta and opari-based makefile)
+
+#Set the following variables
+
+PATH=/soft/perftools/tau/tau_latest/x86_64/bin:/soft/perftools/tau/pdtoolkit-3.22/x86_64/bin:/soft/perftools/tau/papi-knl/bin:/soft/perftools/tau/jre/bin:$PATH
+
+TAU_MAKEFILE=/soft/perftools/tau/tau_latest/x86_64/lib/Makefile.tau-intel17-icpc-papi-mpi-pdt-openmp-opari # use this installation and build statically to avoid issues with OpenMP region overlap
+
+# Choose TAU wrappers for compilation
+
+export CC=tau_cc.sh
+
+export CXX=tau_cxx.sh
+
+Compile STATICALLY and run your code. 

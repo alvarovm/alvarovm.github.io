@@ -8,3 +8,5 @@ Created Tuesday 23 August 2016
 [[+TAU]]
 [[+Intel_vtune]]
 [[+Allinea_Forge]]
+[[+MPItrace]]
+

@@ -1,0 +1,34 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-24T16:25:41-05:00
+
+====== Breakpad ======
+Created Wednesday 24 August 2016
+
+
+=== Breakpad in Theta ===
+
+Breakpad is the "crash dump" library used by Google Chrome, Firefox, etc.
+
+Here's how to use it:
+
+$ module use /soft/modulefiles
+$ module load breakpad-auto
+
+Now link your application using cc/CC/ftn as usual (remember to include -g).
+
+If your application crashes, you'll see files named, for example:
+
+  10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp
+
+Where the first number is the Cobalt job ID, the second number is the (aprun) PE number, the third number is the process's PID, then comes the compute-node host name, and finally a globally-unique identifier (GUID).
+
+You can then examine these so-called minidump files by converting them into regular core files:
+
+$ minidump-2-core 10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp > my_core_file
+$ gdb /path/to/executable/that/crashed my_core_file
+
+You can also view some summary information directly from the minidump file, by running for example:
+
+$ minidump_dump 10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp
+(this output is not small; I recommend you redirect it to a file or a pager)

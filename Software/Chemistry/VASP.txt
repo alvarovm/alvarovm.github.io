@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-24T17:49:49-05:00
+
+====== VASP ======
+Created Wednesday 24 August 2016
+
+== Source ==
+Overview
+http://en.wikipedia.org/wiki/Vienna_Ab-initio_Simulation_Package
+
+Official webpage
+http://www.vasp.at/
+
+== Building ==
+VASP is currently running in ALCF. You need a valid license to use this code. 
+Upon approval, I may provide the instructions on how to build the code.

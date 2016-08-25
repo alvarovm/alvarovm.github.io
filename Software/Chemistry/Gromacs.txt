@@ -1,0 +1,45 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2016-08-24T17:47:59-05:00
+
+====== Gromacs ======
+Created Wednesday 24 August 2016
+
+== Overview ==
+Classic Molecular Dynamics code using force fields, Gromacs is able to similate 10^8 partciles 
+
+http://www.gromacs.org/
+
+== Source ==
+git clone git://git.gromacs.org/gromacs.git gromacs.git
+
+Some patches are required (unless marked '''RESOLVED'''): 
+* Patch1 (fixes [http://redmine.gromacs.org/issues/1280 Issue 1280]) '''RESOLVED'''
+* Patch2 (fixes [http://redmine.gromacs.org/issues/1281 Issue 1281]) '''RESOLVED'''
+* Patch3 (fixes [http://redmine.gromacs.org/issues/1282 Issue 1282]) '''RESOLVED'''
+* Patch4 (fixes [http://redmine.gromacs.org/issues/1283 Issue 1283]) '''RESOLVED'''
+* Patch5 (fixes [http://redmine.gromacs.org/issues/1284 Issue 1284]) '''RESOLVED'''
+
+
+== Building in Blue Gene/Q ==
+
+
+This is how to build Gromacs on Blue Gene/Q:
+'''
+mkdir build && \
+cd build && \
+cmake .. -DCMAKE_TOOLCHAIN_FILE=BlueGeneQ-static-XL-CXX \
+-DCMAKE_PREFIX_PATH=/soft/libraries/alcf/current/xl/FFTW3
+'''
+
+
+NOTE: You //must// ''./build'' in an empty build directory.
+
+== QPX ==
+ 
+It would be nice to add QPX kernels to Gromacs.
+* http://bugzilla.gromacs.org/issues/1064 has details.
+* http://www.gromacs.org/Developer_Zone/Programming_Guide/Verlet_SIMD_kernels Implementing support for a new SIMD instruction set
+* Need to ask for pointers on the nonbonded vector code, which appears to be auto-generated.
+
+**Update:**  QPX support has recently been introduced in Gromacs.  Peruse the Gromacs developer list for more information.
