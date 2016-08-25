@@ -139,6 +139,7 @@
 		<div id="navigation"> <ul>
 <li><a href="../../Main.html" title="Main" class="page">Main</a>
 <ul>
+<li><a href="../ALCF_Machine_status.html" title="ALCF Machine status" class="page">ALCF Machine status</a></li>
 <li><a href="../ALCF_tutorial_video_shortcuts.html" title="ALCF tutorial video shortcuts" class="page">ALCF tutorial video shortcuts</a></li>
 <li><a href="../Mira_BGQ.html" title="Mira BGQ" class="page">Mira BGQ</a></li>
 <li><a href="../Theta_KNL_Cray.html" title="Theta KNL Cray" class="page">Theta KNL Cray</a>
@@ -146,6 +147,7 @@
 <li><a href="./Compiling_your_code.html" title="Compiling your code" class="page">Compiling your code</a></li>
 <li><b>Debbuging</b></li>
 <li><a href="./Getting_started_with_Theta.html" title="Getting started with Theta" class="page">Getting started with Theta</a></li>
+<li><a href="./MCRAM_in_KNL.html" title="MCRAM in KNL" class="page">MCRAM in KNL</a></li>
 <li><a href="./Profiling.html" title="Profiling" class="page">Profiling</a></li>
 <li><a href="./Running_a_job.html" title="Running a job" class="page">Running a job</a></li>
 </ul></li>
@@ -162,42 +164,29 @@ Created Friday 19 August 2016
 </p>
 
 <br>
+<br>
 
 <h1>Allinea DDT</h1>
 
 <br>
 
 <p>
-module add ddt
+Also see<br>
+<a href="http://www.alcf.anl.gov/user-guides/allinea-ddt" title="http://www.alcf.anl.gov/user-guides/allinea-ddt" class="http">http://www.alcf.anl.gov/user-guides/allinea-ddt</a>
+</p>
+
+<p>
+And see for offline DDT in Theta<br>
+<a href="../../Software/Debugging/DDT.html" title="Software:Debugging:DDT" class="page">Software:Debugging:DDT</a>
+</p>
+
+<p>
+Download Allinea Client here:<br>
+<a href="http://www.allinea.com/developer-tools/debug-allinea-ddt/download" title="http://www.allinea.com/developer-tools/debug-allinea-ddt/download" class="http">http://www.allinea.com/developer-tools/debug-allinea-ddt/download</a>
 </p>
 
 <br>
 
-<h1>lgdb</h1>
-
-<br>
-
-<p>
-To run lgdb, use this wrapper:
-</p>
-
-<p>
-   /home/rloy/public/debuggers/lgdb/theta-lgdb
-</p>
-
-<p>
-Once you get the lgdb prompt, use the "launch"<br>
-command and give it your Cobalt script as a<br>
-an argument.
-</p>
-
-<p>
-e.g.   launch $a(8) --qsub=myjob.sh hellompi
-</p>
-
-<p>
-for an 8-rank run.
-</p>
 
 
 			<br>

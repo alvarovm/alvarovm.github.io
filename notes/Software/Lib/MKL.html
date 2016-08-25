@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Getting started with Theta</title>
+	<title>MKL</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -137,40 +137,68 @@
 <body>
 	<div class="wrapper">
 		<div id="navigation"> <ul>
-<li><a href="../../Main.html" title="Main" class="page">Main</a>
+<li><a href="../../Main.html" title="Main" class="page">Main</a></li>
+<li><a href="../../Software.html" title="Software" class="page">Software</a>
 <ul>
-<li><a href="../ALCF_Machine_status.html" title="ALCF Machine status" class="page">ALCF Machine status</a></li>
-<li><a href="../ALCF_tutorial_video_shortcuts.html" title="ALCF tutorial video shortcuts" class="page">ALCF tutorial video shortcuts</a></li>
-<li><a href="../Mira_BGQ.html" title="Mira BGQ" class="page">Mira BGQ</a></li>
-<li><a href="../Theta_KNL_Cray.html" title="Theta KNL Cray" class="page">Theta KNL Cray</a>
+<li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a></li>
+<li><a href="../Lib.html" title="Lib" class="page">Lib</a>
 <ul>
-<li><a href="./Compiling_your_code.html" title="Compiling your code" class="page">Compiling your code</a></li>
-<li><a href="./Debbuging.html" title="Debbuging" class="page">Debbuging</a></li>
-<li><b>Getting started with Theta</b></li>
-<li><a href="./MCRAM_in_KNL.html" title="MCRAM in KNL" class="page">MCRAM in KNL</a></li>
-<li><a href="./Profiling.html" title="Profiling" class="page">Profiling</a></li>
-<li><a href="./Running_a_job.html" title="Running a job" class="page">Running a job</a></li>
-</ul></li>
+<li><a href="./ELPA.html" title="ELPA" class="page">ELPA</a></li>
+<li><a href="./ELSI.html" title="ELSI" class="page">ELSI</a></li>
+<li><b>MKL</b></li>
 </ul>
 </li>
-<li><a href="../../Software.html" title="Software" class="page">Software</a></li>
+<li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a></li>
+<li><a href="../Python.html" title="Python" class="page">Python</a></li>
+</ul></li>
 </ul>
  </div>
 		<div id="content">
-			<h1>Getting started with Theta <a name='Main:Theta KNL Cray:Getting started with Theta'></a></h1>
+			<h1>MKL <a name='Software:Lib:MKL'></a></h1>
 
 			<p>
 Created Tuesday 23 August 2016
 </p>
 
+<br>
+
 <p>
-Visit<br>
-<a href="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" title="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" class="https">https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki</a>
+MKL in Theta
 </p>
 
 <p>
-ALCF ESP Hands on Workshop<br>
-<a href="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" title="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" class="http">http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop</a>
+1) Set env. variable MKLROOT=/opt/intel/mkl-knl/mkl
+</p>
+
+<p>
+2) Consult the following website to determine the compile/link command line options to use:<br>
+<div style='padding-left: 30pt'>
+  <a href="http://software.intel.com/en-us/articles/intel-mkl-link-line-advisor" title="http://software.intel.com/en-us/articles/intel-mkl-link-line-advisor" class="http">http://software.intel.com/en-us/articles/intel-mkl-link-line-advisor</a>
+</div>
+</p>
+
+<p>
+For example, to compile an OpenMP program that calls the MKL Lapack routine DGEMM would require the following command line:
+</p>
+
+<p>
+  $ ftn -static -extend-source -qopenmp -O2 dgemm.f -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_intel_thread.a -Wl,--end-group -lpthread -lm
+</p>
+
+<br>
+
+<p>
+Intel® Math Kernel Library (Intel® MKL) Link Line Advisor v4.5<br>
+<a href="https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/" title="https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/" class="https">https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/</a>
+</p>
+
+<br>
+
+<p>
+How to set good environment variables for the Intel MKL library<br>
+<a href="http://www.diracprogram.org/doc/release-12/installation/mkl.html" title="http://www.diracprogram.org/doc/release-12/installation/mkl.html" class="http">http://www.diracprogram.org/doc/release-12/installation/mkl.html</a><br>
+<a href="https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications" title="https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications" class="https">https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications</a>
 </p>
 
 
@@ -178,9 +206,7 @@ ALCF ESP Hands on Workshop<br>
 			<span class="backlinks">
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
-				<a href='../Theta_KNL_Cray.html'>Main:Theta KNL Cray</a>
-				
-				<a href='../../Main.html'>Main</a>
+				<a href='../Lib.html'>Software:Lib</a>
 				<br /><br />
 			</span>
 

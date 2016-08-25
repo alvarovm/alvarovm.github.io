@@ -141,9 +141,12 @@
 <li><a href="../../Software.html" title="Software" class="page">Software</a>
 <ul>
 <li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a></li>
 <li><a href="../Lib.html" title="Lib" class="page">Lib</a></li>
 <li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a>
 <ul>
+<li><a href="./Intel_vtune.html" title="Intel vtune" class="page">Intel vtune</a></li>
+<li><a href="./MPItrace.html" title="MPItrace" class="page">MPItrace</a></li>
 <li><b>TAU</b></li>
 </ul>
 </li>
@@ -170,6 +173,53 @@ ALCF user guide<br>
 <p>
 Website<br>
 <a href="https://www.cs.uoregon.edu/research/tau/downloads.php" title="https://www.cs.uoregon.edu/research/tau/downloads.php" class="https">https://www.cs.uoregon.edu/research/tau/downloads.php</a>
+</p>
+
+<p>
+PAPI website<br>
+<a href="http://icl.cs.utk.edu/projects/papi/wiki/PAPITopics:Getting_Started" title="http://icl.cs.utk.edu/projects/papi/wiki/PAPITopics:Getting_Started" class="http">http://icl.cs.utk.edu/projects/papi/wiki/PAPITopics:Getting_Started</a>
+</p>
+
+<br>
+
+<p>
+ Use PAPI (in JLSE)
+</p>
+
+<p>
+A patched version of PAPI with supported hardware counters is installed in /soft/perftools/tau/papi-knl
+</p>
+
+<p>
+Option 4: Use TAU (COMPILE STATICALLY USING intel_beta and opari-based makefile)
+</p>
+
+<p>
+#Set the following variables
+</p>
+
+<p>
+PATH=/soft/perftools/tau/tau_latest/x86_64/bin:/soft/perftools/tau/pdtoolkit-3.22/x86_64/bin:/soft/perftools/tau/papi-knl/bin:/soft/perftools/tau/jre/bin:$PATH
+</p>
+
+<p>
+TAU_MAKEFILE=/soft/perftools/tau/tau_latest/x86_64/lib/Makefile.tau-intel17-icpc-papi-mpi-pdt-openmp-opari # use this installation and build statically to avoid issues with OpenMP region overlap
+</p>
+
+<p>
+# Choose TAU wrappers for compilation
+</p>
+
+<p>
+export CC=tau_cc.sh
+</p>
+
+<p>
+export CXX=tau_cxx.sh
+</p>
+
+<p>
+Compile STATICALLY and run your code. 
 </p>
 
 

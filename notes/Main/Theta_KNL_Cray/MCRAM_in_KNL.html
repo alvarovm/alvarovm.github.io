@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Getting started with Theta</title>
+	<title>MCRAM in KNL</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -146,8 +146,8 @@
 <ul>
 <li><a href="./Compiling_your_code.html" title="Compiling your code" class="page">Compiling your code</a></li>
 <li><a href="./Debbuging.html" title="Debbuging" class="page">Debbuging</a></li>
-<li><b>Getting started with Theta</b></li>
-<li><a href="./MCRAM_in_KNL.html" title="MCRAM in KNL" class="page">MCRAM in KNL</a></li>
+<li><a href="./Getting_started_with_Theta.html" title="Getting started with Theta" class="page">Getting started with Theta</a></li>
+<li><b>MCRAM in KNL</b></li>
 <li><a href="./Profiling.html" title="Profiling" class="page">Profiling</a></li>
 <li><a href="./Running_a_job.html" title="Running a job" class="page">Running a job</a></li>
 </ul></li>
@@ -157,20 +157,193 @@
 </ul>
  </div>
 		<div id="content">
-			<h1>Getting started with Theta <a name='Main:Theta KNL Cray:Getting started with Theta'></a></h1>
+			<h1>MCRAM in KNL <a name='Main:Theta KNL Cray:MCRAM in KNL'></a></h1>
 
 			<p>
-Created Tuesday 23 August 2016
+Created Thursday 25 August 2016
+</p>
+
+<br>
+
+<h4>Cluster and Memory modes</h4>
+
+<br>
+
+<p>
+It is possible boot a KNL computer with different cluster and memory modes. 
 </p>
 
 <p>
-Visit<br>
-<a href="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" title="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" class="https">https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki</a>
+Cluster Mode=All2All ; (Options: All2All=00: SNC-2=01: SNC-4=02: Hemisphere=03: Quadrant=04: Auto=05 )<br>
+Memory Mode=Flat   ; (Options: Cache=00: Flat=01: Hybrid=02: Auto=03 )
 </p>
 
 <p>
-ALCF ESP Hands on Workshop<br>
-<a href="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" title="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" class="http">http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop</a>
+<img src="./MCRAM_in_KNL/pasted_image.png">
+</p>
+
+<br>
+
+<h2>MCDRAM Usage</h2>
+
+<br>
+<br>
+
+<h3>How to check the memory my app is using</h3>
+
+<p>
+watch ps -C ./yourbinary u
+</p>
+
+<br>
+
+<p>
+Cluster Mode=All2All ; (Options: All2All=00: SNC-2=01: SNC-4=02: Hemisphere=03: Quadrant=04: Auto=05 )<br>
+Memory Mode=Flat   ; (Options: Cache=00: Flat=01: Hybrid=02: Auto=03 )
+</p>
+
+<p>
+You may use the Intel high bandwidth memory extentions, Intel FOTRAN FASTMEM<br>
+extension, the memkind library or numactl to control usage of MCDRAM.
+</p>
+
+<p>
+#include &lt;hbwmalloc.h&gt;
+</p>
+
+<p>
+<b> Link with -lmemkind </b>
+</p>
+
+<p>
+You can launch an unmodified binary with numactl and place all memory into MCDRAM.
+</p>
+
+<p>
+$ numactl -m 1 ./your_binary.exe
+</p>
+
+<p>
+Launching within mpirun:
+</p>
+
+<p>
+$ mpirun -n 4 <b>numactl -m 1</b> ./your_binary.exe
+</p>
+
+<p>
+For executing under SNC-4, there are four NUMA domains. Domains 0,1,2,3 are<br>
+DDR and domains 4,5,6,7 are MCDRAM. An example to bind a single application<br>
+to all MCDRAM domains:
+</p>
+
+<p>
+$ numactl -m 4,5,6,7 ./your_binary.exe
+</p>
+
+<p>
+With MPI to setup each process with a different affinity you use:
+</p>
+
+<p>
+$ mpirun -perhost 4 -n 1 numactl --preferred 4 ./your_binary.exe : \
+</p>
+
+<p>
+<div style='padding-left: 150pt'>
+-n 1 numactl --preferred 5 ./your_binary.exe : \
+</div>
+</p>
+
+<p>
+<div style='padding-left: 150pt'>
+-n 1 numactl --preferred 6 ./your_binary.exe : \
+</div>
+</p>
+
+<p>
+<div style='padding-left: 150pt'>
+-n 1 numactl --preferred 7 ./your_binary.exe
+</div>
+</p>
+
+<p>
+In SNC-4, if you want to use different affinity and run an hybrid MPI-OMP application use the following command
+</p>
+
+<p>
+$ mpirun -perhost 4 -n 1 -env KMP_AFFINITY=balanced,granularity=fine numactl --preferred 4 ./your_binary.exe : \
+</p>
+
+<p>
+<div style='padding-left: 240pt'>
+-n 1 -env KMP_AFFINITY=balanced,granularity=fine numactl --preferred 4 ./your_binary.exe : \
+</div>
+</p>
+
+<p>
+<div style='padding-left: 240pt'>
+-n 1 -env KMP_AFFINITY=balanced,granularity=fine numactl --preferred 4 ./your_binary.exe : \
+</div>
+</p>
+
+<p>
+<div style='padding-left: 240pt'>
+-n 1 -env KMP_AFFINITY=balanced,granularity=fine numactl --preferred 4 ./your_binary.exe
+</div>
+</p>
+
+<p>
+Note: You should be able to assign different thread affinity per MPI process (not tested)<br>
+HBWMalloc Caveats (as of 05/20/2016)
+</p>
+
+<p>
+HBWmalloc supports 3 policies as described in /usr/include/hbwmalloc.h
+</p>
+
+<p>
+By default, HBW_POLICY_PREFERRED = 2 which means that if there is no MCDRAM memory left, memory will be allocated from DRAM.
+</p>
+
+<p>
+For HBW_POLICY_PREFERRED = 1 and HBW_POLICY_PREFERRED = 3, if you try to allocate more memory than the MCDRAM provides, you get an error code in return that is accurate when using a single thread. When using multiple thread (lets say you want to allocate 15 GB of MCDRAM memory) no error code is actually returned from the allocation which is inconsistent with the API documentation<br>
+NUMA Notes
+</p>
+
+<p>
+Depending on the node's configuration, the number of NUMA domains differs.
+</p>
+
+<p>
+<div style='padding-left: 30pt'>
+In Cached mode there will be only one NUMA domain as all the MCDRAM is used<br>
+as a cache for DDR.<br>
+In Flat (or Hybrid) mode, the DDR and MCDRAM will be in distinct NUMA domains.
+</div>
+</p>
+
+<p>
+The following command describes the node.
+</p>
+
+<p>
+$ numactl -H<br>
+available: 2 nodes (0-1)<br>
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255<br>
+node 1 size: 196512 MB *<b> DDR </b>**<br>
+node 0 free: 191010 MB<br>
+node 1 cpus:<br>
+node 1 size: 16384 MB *<b> MCDRAM </b>**<br>
+node 1 free: 15790 MB<br>
+node distances:<br>
+node 0 1 <br>
+ 0: 10 31 <br>
+ 1: 31 10
+</p>
+
+<p>
+In this case, numactl -m 1 selects binding to MCDRAM. In the SNC-4 model, there will be 8 domains instead of two.
 </p>
 
 
@@ -179,8 +352,6 @@ ALCF ESP Hands on Workshop<br>
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
 				<a href='../Theta_KNL_Cray.html'>Main:Theta KNL Cray</a>
-				
-				<a href='../../Main.html'>Main</a>
 				<br /><br />
 			</span>
 

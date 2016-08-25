@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Nwchem</title>
+	<title>Breakpad</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -137,35 +137,82 @@
 <body>
 	<div class="wrapper">
 		<div id="navigation"> <ul>
-<li><a href="../Main.html" title="Main" class="page">Main</a></li>
-<li><a href="../Software.html" title="Software" class="page">Software</a>
+<li><a href="../../Main.html" title="Main" class="page">Main</a></li>
+<li><a href="../../Software.html" title="Software" class="page">Software</a>
 <ul>
-<li><a href="./FHIaims.html" title="FHIaims" class="page">FHIaims</a></li>
-<li><b>Nwchem</b></li>
+<li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a>
+<ul>
+<li><a href="./ATP.html" title="ATP" class="page">ATP</a></li>
+<li><b>Breakpad</b></li>
+<li><a href="./DDT.html" title="DDT" class="page">DDT</a></li>
+<li><a href="./lgdb.html" title="lgdb" class="page">lgdb</a></li>
+</ul>
+</li>
+<li><a href="../Lib.html" title="Lib" class="page">Lib</a></li>
+<li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a></li>
+<li><a href="../Python.html" title="Python" class="page">Python</a></li>
 </ul></li>
 </ul>
  </div>
 		<div id="content">
-			<h1>Nwchem <a name='Software:Nwchem'></a></h1>
+			<h1>Breakpad <a name='Software:Debugging:Breakpad'></a></h1>
 
 			<p>
-Created Thursday 18 August 2016
+Created Wednesday 24 August 2016
+</p>
+
+<br>
+
+<h4>Breakpad in Theta</h4>
+
+<br>
+
+<p>
+Breakpad is the "crash dump" library used by Google Chrome, Firefox, etc.
 </p>
 
 <p>
-Webpage
+Here's how to use it:
 </p>
 
 <p>
-Compilation
+$ module use /soft/modulefiles<br>
+$ module load breakpad-auto
 </p>
 
 <p>
-Run
+Now link your application using cc/CC/ftn as usual (remember to include -g).
 </p>
 
 <p>
-Notes
+If your application crashes, you'll see files named, for example:
+</p>
+
+<p>
+  10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp
+</p>
+
+<p>
+Where the first number is the Cobalt job ID, the second number is the (aprun) PE number, the third number is the process's PID, then comes the compute-node host name, and finally a globally-unique identifier (GUID).
+</p>
+
+<p>
+You can then examine these so-called minidump files by converting them into regular core files:
+</p>
+
+<p>
+$ minidump-2-core 10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp &gt; my_core_file<br>
+$ gdb /path/to/executable/that/crashed my_core_file
+</p>
+
+<p>
+You can also view some summary information directly from the minidump file, by running for example:
+</p>
+
+<p>
+$ minidump_dump 10852.16.63918.nid00002.551347ac-429b-3612-7158abea-766f9798.dmp<br>
+(this output is not small; I recommend you redirect it to a file or a pager)
 </p>
 
 
@@ -173,7 +220,9 @@ Notes
 			<span class="backlinks">
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
-				<a href='../Software.html'>Software</a>
+				<a href='../../Software.html'>Software</a>
+				
+				<a href='../Debugging.html'>Software:Debugging</a>
 				<br /><br />
 			</span>
 

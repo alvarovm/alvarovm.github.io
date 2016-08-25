@@ -141,10 +141,12 @@
 <li><a href="../../Software.html" title="Software" class="page">Software</a>
 <ul>
 <li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a></li>
 <li><a href="../Lib.html" title="Lib" class="page">Lib</a>
 <ul>
 <li><b>ELPA</b></li>
 <li><a href="./ELSI.html" title="ELSI" class="page">ELSI</a></li>
+<li><a href="./MKL.html" title="MKL" class="page">MKL</a></li>
 </ul>
 </li>
 <li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a></li>
@@ -167,7 +169,90 @@ Created Tuesday 23 August 2016
 
 <br>
 
+<p>
+Precompiled binaries and library in Theta can be found here:<br>
+/home/avazquez/public/ELPA-AVX-MIC-AVX512-cray2
+</p>
+
+<h5>Theta KNL/Cray computer</h5>
+
+<br>
+
+<p>
+This is a copy of a make.sys to compile with Intel compilers using Cray wrappers and cray-libsci library with Scalapack/lapack/blas functions.
+</p>
+
+<pre>
+# Please set the variables below according to your system!
+# ========================================================
+# Choose ELPA2 kernels.
+# Possible choices for ARCHITECTURE include:
+# Generic, Simple, SSE, AVX, BlueGeneQ.
+# See ./src/elpa2_kernels/README_elpa2_kernels.
+ARCHITECTURE = AVX
+# For AVX, uncomment and set the following variables.
+BLOCK_REAL = 2
+BLOCK_COMPLEX = 1
+# ========================================================
+# Switch on/off OpenMP.
+# Set OPENMP to yes/no.
+
+OPENMP = yes
+
+# ========================================================
+# Set compilers and flags.
+# Only Fortran compiler and flags are necessary,
+# unless using AVX kernels and/or OpenMP.
+
+PRE      =AVX-MIC-AVX512-cray2
+MPIFC    = ftn
+FFLAGS_E  = -O3 -fpe0 -fpp -g -fopenmp -qopt-report=5 -xMIC-AVX512  -check bounds -check uninit -check pointers -traceback -lstdc++
+MPICC    = cc
+CFLAGS_E  =  -O3 -g -fopenmp -qopt-report=5 -xMIC-AVX512 -traceback
+MPICXX   = CC
+CXXFLAGS_E = -O3 -g -fopenmp -xMIC-AVX512 -traceback
+# Set XLF to yes if using IBM XF compilers.
+XLF = no
+# ========================================================
+# Location of BLAS/LAPACK/BLACS/ScaLAPACK.
+#BLAS      =
+#LAPACK    =
+#BLACS     = 
+#SCALAPACK = 
+# ========================================================
+# Archive tools.
+ARCH = ar
+ARCHFLAGS = cr
+RANLIB = ranlib
+</pre>
+
+<br>
+<br>
+<br>
+
 <h4>Run</h4>
+
+<br>
+
+<p>
+This is an example of how to run test_real2 in 8 nodes 64 processors per node and 1 openmp thread.
+</p>
+
+<pre>
+#!/bin/bash -x
+#COBALT -t 30
+#COBALT -n 8
+#COBALT -q cache-quad
+#COBALT -A HybridPV_tesp
+bin=/home/avazquez/public/ELPA-AVX-MIC-AVX512-cray2/bin/test_real2
+proc=64
+thr=1
+size=8
+export  OMP_NUM_THREADS=$thr
+na=$((size*1024))
+ntot=$(($COBALT_PARTSIZE*$proc))
+aprun  -n $ntot -N $proc -cc depth -d $thr    $bin $na $na 16 &gt;&amp; test_rank-$ntot-$proc-omp-$thr-$na-16-out-$COBALT_JOBID
+</pre>
 
 <br>
 
@@ -179,6 +264,8 @@ Created Tuesday 23 August 2016
 			<span class="backlinks">
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
+				<a href='../Lib.html'>Software:Lib</a>
+				
 				<a href='../../Software.html'>Software</a>
 				<br /><br />
 			</span>

@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Getting started with Theta</title>
+	<title>Molpro</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -137,50 +137,90 @@
 <body>
 	<div class="wrapper">
 		<div id="navigation"> <ul>
-<li><a href="../../Main.html" title="Main" class="page">Main</a>
+<li><a href="../../Main.html" title="Main" class="page">Main</a></li>
+<li><a href="../../Software.html" title="Software" class="page">Software</a>
 <ul>
-<li><a href="../ALCF_Machine_status.html" title="ALCF Machine status" class="page">ALCF Machine status</a></li>
-<li><a href="../ALCF_tutorial_video_shortcuts.html" title="ALCF tutorial video shortcuts" class="page">ALCF tutorial video shortcuts</a></li>
-<li><a href="../Mira_BGQ.html" title="Mira BGQ" class="page">Mira BGQ</a></li>
-<li><a href="../Theta_KNL_Cray.html" title="Theta KNL Cray" class="page">Theta KNL Cray</a>
+<li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a>
 <ul>
-<li><a href="./Compiling_your_code.html" title="Compiling your code" class="page">Compiling your code</a></li>
-<li><a href="./Debbuging.html" title="Debbuging" class="page">Debbuging</a></li>
-<li><b>Getting started with Theta</b></li>
-<li><a href="./MCRAM_in_KNL.html" title="MCRAM in KNL" class="page">MCRAM in KNL</a></li>
-<li><a href="./Profiling.html" title="Profiling" class="page">Profiling</a></li>
-<li><a href="./Running_a_job.html" title="Running a job" class="page">Running a job</a></li>
-</ul></li>
+<li><a href="./CP2K.html" title="CP2K" class="page">CP2K</a></li>
+<li><a href="./Dalton.html" title="Dalton" class="page">Dalton</a></li>
+<li><a href="./FHIaims.html" title="FHIaims" class="page">FHIaims</a></li>
+<li><a href="./GAMESS.html" title="GAMESS" class="page">GAMESS</a></li>
+<li><a href="./Gromacs.html" title="Gromacs" class="page">Gromacs</a></li>
+<li><a href="./LAMMPS.html" title="LAMMPS" class="page">LAMMPS</a></li>
+<li><a href="./MADNESS.html" title="MADNESS" class="page">MADNESS</a></li>
+<li><b>Molpro</b></li>
+<li><a href="./Nwchem.html" title="Nwchem" class="page">Nwchem</a></li>
+<li><a href="./Quantum_Espresso.html" title="Quantum Espresso" class="page">Quantum Espresso</a></li>
+<li><a href="./Siesta.html" title="Siesta" class="page">Siesta</a></li>
+<li><a href="./VASP.html" title="VASP" class="page">VASP</a></li>
 </ul>
 </li>
-<li><a href="../../Software.html" title="Software" class="page">Software</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a></li>
+<li><a href="../Lib.html" title="Lib" class="page">Lib</a></li>
+<li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a></li>
+<li><a href="../Python.html" title="Python" class="page">Python</a></li>
+</ul></li>
 </ul>
  </div>
 		<div id="content">
-			<h1>Getting started with Theta <a name='Main:Theta KNL Cray:Getting started with Theta'></a></h1>
+			<h1>Molpro <a name='Software:Chemistry:Molpro'></a></h1>
 
 			<p>
-Created Tuesday 23 August 2016
+Created Wednesday 24 August 2016
+</p>
+
+<h5>Building</h5>
+
+<p>
+The configure line for Molpro 2012.1 in serial is:
 </p>
 
 <p>
-Visit<br>
-<a href="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" title="https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki" class="https">https://collab.cels.anl.gov/display/ESP/Theta+ESP+Wiki</a>
+./configure -noneci -blaspath /soft/libraries/essl/current/lib64<br>
+-lapackpath /soft/libraries/alcf/current/xl/LAPACK/lib
 </p>
 
 <p>
-ALCF ESP Hands on Workshop<br>
-<a href="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" title="http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop" class="http">http://www.alcf.anl.gov/workshops/alcf-theta-esp-hands-workshop</a>
+and for parallel:
 </p>
+
+<p>
+./configure -noneci -mpp -mppbase<br>
+/bgsys/drivers/V1R2M1/ppc64/comm/include -blaspath<br>
+/soft/libraries/essl/current/lib64 -lapackpath<br>
+/soft/libraries/alcf/current/xl/LAPACK/lib
+</p>
+
+<p>
+then 'make'. 
+</p>
+
+<h5>Running</h5>
+
+<p>
+An example job script is:
+</p>
+
+<pre>
+# #!/bin/sh
+# #COBALT -t 30
+# #COBALT -n 1
+#
+# echo "start of job script"
+# cd ${HOME}/path/to/Molpro
+# make -C lib init.log
+# make -C testjobs MOLPRO_OPTIONS=-n4 quicktest
+# echo "end of job script"
+</pre>
+
 
 
 			<br>
 			<span class="backlinks">
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
-				<a href='../Theta_KNL_Cray.html'>Main:Theta KNL Cray</a>
-				
-				<a href='../../Main.html'>Main</a>
+				<a href='../Chemistry.html'>Software:Chemistry</a>
 				<br /><br />
 			</span>
 

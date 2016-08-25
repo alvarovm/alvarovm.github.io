@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Getting started with Theta</title>
+	<title>DDT</title>
 	<meta name="generator" content="Zim 0.65">
 	<meta name="viewport" content="width=device-width">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'> -->
@@ -137,20 +137,63 @@
 <body>
 	<div class="wrapper">
 		<div id="navigation"> <ul>
-<li><a href="../Main.html" title="Main" class="page">Main</a></li>
-<li><a href="../Software.html" title="Software" class="page">Software</a></li>
+<li><a href="../../Main.html" title="Main" class="page">Main</a></li>
+<li><a href="../../Software.html" title="Software" class="page">Software</a>
+<ul>
+<li><a href="../Chemistry.html" title="Chemistry" class="page">Chemistry</a></li>
+<li><a href="../Debugging.html" title="Debugging" class="page">Debugging</a>
+<ul>
+<li><a href="./ATP.html" title="ATP" class="page">ATP</a></li>
+<li><a href="./Breakpad.html" title="Breakpad" class="page">Breakpad</a></li>
+<li><b>DDT</b></li>
+<li><a href="./lgdb.html" title="lgdb" class="page">lgdb</a></li>
+</ul>
+</li>
+<li><a href="../Lib.html" title="Lib" class="page">Lib</a></li>
+<li><a href="../Profiling.html" title="Profiling" class="page">Profiling</a></li>
+<li><a href="../Python.html" title="Python" class="page">Python</a></li>
+</ul></li>
 </ul>
  </div>
 		<div id="content">
-			<h1>Getting started with Theta <a name='Main:Getting started with Theta'></a></h1>
+			<h1>DDT <a name='Software:Debugging:DDT'></a></h1>
 
-			
+			<p>
+Created Wednesday 24 August 2016
+</p>
+
+<h4>DDT Offline in Theta</h4>
+
+<br>
+
+<p>
+<ul style='padding-left: 30pt'>
+<li>Using DDT's offline mode</li>
+</ul>
+</p>
+
+<p>
+<div style='padding-left: 60pt'>
+  ddt --offline=foo.html aprun -np 1000 a.out arg arg
+</div>
+</p>
+
+<p>
+<div style='padding-left: 30pt'>
+  will get you html file with all variables, stacks, merged from all crashing processes.
+</div>
+</p>
+
 
 			<br>
 			<span class="backlinks">
 				<hr class='footnotes'>
 				<b>Backlinks:</b>
-				<a href='../Main.html'>Main</a>
+				<a href='../../Software.html'>Software</a>
+				
+				<a href='../Debugging.html'>Software:Debugging</a>
+				
+				<a href='../../Main/Theta_KNL_Cray/Debbuging.html'>Main:Theta KNL Cray:Debbuging</a>
 				<br /><br />
 			</span>
 
