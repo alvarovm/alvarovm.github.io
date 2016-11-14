@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2016-08-24T17:48:17-05:00
-
-====== LAMMPS ======
-Created Wednesday 24 August 2016
-
-
-The official version of this page is https://www.alcf.anl.gov/user-guides/lammps, but it might not have the latent content provided here.
